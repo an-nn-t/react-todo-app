@@ -1,73 +1,144 @@
-# React + TypeScript + Vite
+# タスク管理 ToDo アプリ
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+👀 **GitHub Pages 版はこちら:**  
+👉 **https://an-nn-t.github.io/react-todo-app/**  
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+# 📌 アプリ概要
 
-## React Compiler
+本アプリは、**期限管理・優先度・日々の計画（サブタスク）・メモ・所要時間などを総合的に扱える高機能 ToDo アプリ**です。  
+「タスクを登録して終わり」ではなく、**どのように進めるか（計画性）を可視化すること**に重点を置いて設計しました。
 
-The React Compiler is currently not compatible with SWC. See [this issue](https://github.com/vitejs/vite-plugin-react/issues/428) for tracking the progress.
+スマホ・PC双方に最適化されており、快適な操作感でタスク管理を行えます。
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+# 🎯 コンセプト
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### **“タスクを管理するだけでなく、進め方まで管理できる ToDo アプリ”**
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+一般的な Todo アプリは  
+- タスク名  
+- 期日  
+- 完了フラグ  
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+の3要素で完結してしまうことが多く、**「どう進めるか」「何日で何をやるべきか」が管理しにくい**という課題があります。
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+そこで本アプリでは、  
+**①タスクと別に「日々の計画」を立てられる**  
+**②複数の期限（メイン・サブ）に対応**  
+**③見積もり時間やメモも含めてタスクの全体像を管理できる**  
+という構成を採用しました。
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+---
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+# 🧩 主な機能
+
+## ✔️ タスク管理の基本機能  
+- タスク追加・編集・削除  
+- 完了／未完了の切り替え  
+- メイン期限 / サブ期限 の両方を設定可能  
+- 優先度（低・中・高・緊急）をカラーラベルで表示  
+- 所要時間（h単位）も記録可能  
+- 期限が迫るとアラートラベルで通知  
+  - 今日が期限  
+  - 明日が期限  
+  - 3日以内  
+  - 期限切れ  
+
+---
+
+## ✔️ 「日々の計画（Daily Plan）」機能  
+タスクごとに  
+- 日付  
+- 当日の活動内容  
+- 完了フラグ付きのサブタスク
+
+を複数作成可能。
+
+さらに日付順で自動ソートされ、  
+**タスク進捗 = 完了済サブタスク数 / 全サブタスク数**  
+を可視化できます。
+
+---
+
+## ✔️ 豊富な UI / UX 機能  
+- スマホでは「新規追加」を開閉式で表示  
+- PC ではフォームとリストを2カラムで表示  
+- ダークモード対応  
+- メッセージ（成功/エラー）のトースト表示  
+- 詳細編集はモーダルで表示  
+- アイコンには lucide-react を使用し直感的操作を実現  
+- 完了タスクは透明度・色味を抑えて表示  
+
+---
+
+## ✔️ ソート機能  
+- **期限順**（もっとも近い期限のタスクから表示）  
+- **優先度順**（緊急 → 高 → 中 → 低 の自動並び替え）  
+
+---
+
+# 🛠 技術スタック
+
+| 分類 | 使用技術 |
+|------|-----------|
+| フロントエンド | React / TypeScript |
+| UI | Tailwind CSS / lucide-react |
+| 状態管理 | React Hooks (useState, useEffect, useMemo, useCallback) |
+| データ保存 | localStorage |
+| デプロイ | GitHub Pages |
+
+---
+
+# 🌟 スクリーンショット
+![](<IMG\スクリーンショット (375).png>)
+![alt text](<スクリーンショット (376).png>)
+![alt text](<スクリーンショット (374).png>)
+
+---
+
+# 💡 工夫した点・オリジナリティ
+
+## ◆ **① タスクの「進め方」まで管理するという独自思想**
+ただの ToDo ではなく、**“タスク分解を日単位で行う”**ことに重きを置き、
+一般的なアプリにはない **Daily Plan 機能** を実装しました。
+
+## ◆ **② 期限アラートのロジックを独自に設計**
+メイン期限・サブ期限・未完了のサブタスクの中から  
+**「いちばん近い日付」を自動判定**し、  
+「今日」「明日」「3日以内」「期限切れ」を表示します。
+
+これにより、  
+**あらゆる期限を統合して“危険なタスク”を一目で把握できる** 機能を実現。
+
+## ◆ **③ UI/UX に徹底的にこだわった**
+- PCでは横2分割
+- スマホでは1カラム + ボタンでフォーム開閉
+- ダークモードにも対応
+- アニメーションと影でカードの視認性を強化
+- 直感的アイコン操作
+
+など、**操作していて気持ちよい UI/UX** を追求しました。
+
+## ◆ ◆ **④ useCallback, useMemo を適切に使用してパフォーマンス最適化**
+ソート・フォーム処理・メッセージ表示など  
+再レンダリングが発生しやすい箇所には  
+React Hooks で最適化処理を追加しています。
+
+---
+
+# 📂 使い方
+
+1. 「新規登録」ボタンからタスクを登録  
+2. 必要に応じて期限・優先度・メモなどを設定  
+3. さらに詳しい計画が必要なら「詳細編集」から Daily Plan を追加  
+4. 期限や優先度順に並び替えて進捗管理  
+5. 完了したらチェックして達成感を味わう 🎉
+
+---
+
+# 📅 開発期間
+
+**開発期間: 2025.11.10 ~ 2025.11.19（約18時間）**
