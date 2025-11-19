@@ -365,7 +365,7 @@ const PlanEditor: React.FC<{
             </div>
         </div>
         
-        <h4 className="text-xl font-semibold text-gray-800 dark:text-gray-100 mt-6 border-b pb-2">日々の計画 (サブタスク)</h4>
+        <h4 className="text-xl font-semibold text-gray-800 dark:text-gray-100 mt-6 border-b pb-2">サブタスク</h4>
 
         {/* 日々の計画追加フォーム */}
         <div className="flex flex-col sm:flex-row gap-2 mb-4 p-3 bg-gray-100 dark:bg-gray-700 rounded-lg border border-gray-200 dark:border-gray-600">
@@ -397,7 +397,7 @@ const PlanEditor: React.FC<{
         {/* 日々の計画リスト */}
         <div className="space-y-2 max-h-60 overflow-y-auto pr-2">
           {localTodo.dailyPlan.length === 0 ? (
-            <p className="text-gray-500 text-sm text-center">日々の計画を追加しましょう。</p>
+            <p className="text-gray-500 text-sm text-center"></p>
           ) : (
             localTodo.dailyPlan.map((item) => (
               <div 
@@ -675,7 +675,7 @@ const App: React.FC = () => {
             <div className="space-y-4">
               {todos.length === 0 ? (
                 <div className="p-6 text-center text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 rounded-xl shadow-md">
-                  <p className="text-lg">🥳 タスクはすべて完了しました！</p>
+                  <p className="text-lg">タスクはすべて完了しました！</p>
                   <p className="text-sm mt-2">新しいタスクを登録しましょう。</p>
                 </div>
               ) : (
